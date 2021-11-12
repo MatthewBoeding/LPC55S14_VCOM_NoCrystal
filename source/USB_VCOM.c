@@ -47,7 +47,7 @@
 /* TODO: insert other definitions and declarations here. */
 #define USB_LPC3511IP_MAX_PHY_ENDPOINT_MASK (0xFFFFu)
 #define USB_LPC3511IP_INTSTAT_DEV_INT_MASK   USBHSD_INTSTAT_DEV_INT_MASK
-usb_device_lpc3511ip_state_struct_t *lpc3511IpState;
+#define USB_DEVICE_SOF_EVENT_ENABLE  1U
 usb_device_control_type_t type;
 
 void USB_CrystalLessInit(void)
@@ -55,18 +55,7 @@ void USB_CrystalLessInit(void)
     unsigned int test = fro_calib_Get_Lib_Ver();
     Chip_TIMER_Instance_Freq(CTIMER0, 96000);
     /* enable interrupts */
-    lpc3511IpState->registerBase->INTEN = USB_LPC3511IP_INTSTAT_DEV_INT_MASK |
-    USB_LPC3511IP_MAX_PHY_ENDPOINT_MASK
-    #if (defined(USB_DEVICE_SOF_EVENT_ENABLE) && (USB_DEVICE_SOF_EVENT_ENABLE > 0U))
-    | USB_LPC3511IP_INTSTAT_FRAME_INT_MASK
-    #endif
-	;
-	#if (defined(USB_DEVICE_SOF_EVENT_ENABLE) && (USB_DEVICE_SOF_EVENT_ENABLE > 0U))
-	if (interruptStatus & USB_LPC3511IP_INTSTAT_FRAME_INT_MASK)
-	{
-	USB_DeviceLpc3511IpSofEvent(lpc3511IpState);
-	}
-	#endif
+    USB0->INTEN = USB_LPC3511IP_INTSTAT_DEV_INT_MASK | USB_LPC3511IP_MAX_PHY_ENDPOINT_MASK | USB_INTSTAT_FRAME_INT_MASK;
 
 }
 int main(void) {

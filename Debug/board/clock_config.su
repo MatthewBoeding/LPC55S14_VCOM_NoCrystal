@@ -1,5 +1,5 @@
-C:\Users\developer\Documents\MCUXpressoIDE_11.4.0_6224\workspace\USB_VCOM\drivers/fsl_clock.h:987:20:CLOCK_EnableClock	24	static
-C:\Users\developer\Documents\MCUXpressoIDE_11.4.0_6224\workspace\USB_VCOM\LPC55S16\drivers/fsl_power.h:375:20:POWER_DisablePD	16	static
+C:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\drivers/fsl_clock.h:987:20:CLOCK_EnableClock	24	static
+C:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\LPC55S16\drivers/fsl_power.h:375:20:POWER_DisablePD	16	static
 ../board/clock_config.c:46:6:BOARD_InitBootClocks	8	static
 ../board/clock_config.c:70:6:BOARD_BootClockFRO12M	8	static
 ../board/clock_config.c:117:6:BOARD_BootClockFROHF96M	8	static

@@ -1,5 +1,5 @@
-C:\Users\developer\Documents\MCUXpressoIDE_11.4.0_6224\workspace\USB_VCOM\drivers/fsl_clock.h:987:20:CLOCK_EnableClock	24	static
-C:\Users\developer\Documents\MCUXpressoIDE_11.4.0_6224\workspace\USB_VCOM\drivers/fsl_iocon.h:182:22:IOCON_PinMuxSet	24	static
+C:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\drivers/fsl_clock.h:987:20:CLOCK_EnableClock	24	static
+C:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\drivers/fsl_iocon.h:182:22:IOCON_PinMuxSet	24	static
 ../board/pin_mux.c:31:6:BOARD_InitBootPins	8	static
 ../board/pin_mux.c:63:6:BOARD_InitDEBUG_UARTPins	24	static
 ../board/pin_mux.c:158:6:BOARD_InitSWD_DEBUGPins	24	static

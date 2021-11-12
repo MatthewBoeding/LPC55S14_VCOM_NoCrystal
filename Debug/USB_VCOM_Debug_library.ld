@@ -6,7 +6,7 @@
  * Generated linker script file for LPC55S16
  * Created from library.ldt by FMCreateLinkLibraries
  * Using Freemarker v2.3.30
- * MCUXpresso IDE v11.4.0 [Build 6224] [2021-07-15] on Nov 11, 2021, 9:48:52 AM
+ * MCUXpresso IDE v11.4.0 [Build 6237] [2021-08-06] on Nov 12, 2021, 4:15:34 PM
  */
 
 GROUP (

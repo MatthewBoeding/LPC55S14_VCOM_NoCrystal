@@ -45,7 +45,7 @@ all: USB_VCOM.axf
 USB_VCOM.axf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: MCU Linker'
-	arm-none-eabi-gcc -nostdlib -L"C:\Users\developer\Documents\MCUXpressoIDE_11.4.0_6224\workspace\USB_VCOM\LPC55S16\mcuxpresso" -Xlinker -Map="USB_VCOM.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment -Xlinker --cref -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -T USB_VCOM_Debug.ld -o "USB_VCOM.axf" $(OBJS) $(USER_OBJS) $(LIBS)
+	arm-none-eabi-gcc -nostdlib -L"C:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\LPC55S16\mcuxpresso" -Xlinker -Map="USB_VCOM.map" -Xlinker --gc-sections -Xlinker -print-memory-usage -Xlinker --sort-section=alignment -Xlinker --cref -mcpu=cortex-m33 -mfpu=fpv5-sp-d16 -mfloat-abi=hard -mthumb -T USB_VCOM_Debug.ld -o "USB_VCOM.axf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 	$(MAKE) --no-print-directory post-build

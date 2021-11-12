@@ -24,6 +24,7 @@
      ((defined(USB_DEVICE_CONFIG_LPCIP3511HS)) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U)))
 
 #include "usb_device_lpcip3511.h"
+#include "fsl_fro_calib.h"
 
 #if ((defined(USB_DEVICE_CONFIG_LPCIP3511HS)) && (USB_DEVICE_CONFIG_LPCIP3511HS > 0U))
 
@@ -2557,12 +2558,10 @@ void USB_DeviceLpcIp3511IsrFunction(void *deviceHandle)
             }
         }
     }
-
-#if 0U
     if (interruptStatus & USB_LPC3511IP_INTSTAT_FRAME_INT_MASK)
     {
+    	USB_SOF_Event();
     }
-#endif
 }
 
 #endif
