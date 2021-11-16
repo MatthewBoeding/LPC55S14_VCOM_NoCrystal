@@ -48,7 +48,13 @@
 #define USB_LPC3511IP_MAX_PHY_ENDPOINT_MASK (0xFFFFu)
 #define USB_LPC3511IP_INTSTAT_DEV_INT_MASK   USBHSD_INTSTAT_DEV_INT_MASK
 #define USB_DEVICE_SOF_EVENT_ENABLE  1U
+#define USB_CDC_VCOM_DIC_BULK_IN_ENDPOINT (3)
+#define USB_CDC_VCOM_DIC_BULK_OUT_ENDPOINT (3)
 usb_device_control_type_t type;
+
+extern uint8_t cmdReady;
+
+static usb_device_composite_struct_t g_UsbDeviceComposite;
 
 void USB_CrystalLessInit(void)
 {
@@ -59,7 +65,6 @@ void USB_CrystalLessInit(void)
 
 }
 int main(void) {
-
     /* Init board hardware. */
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
@@ -74,14 +79,14 @@ int main(void) {
     GPIO_PortToggle(GPIO, 1, 1u << 6);
     /* Force the counter to be placed into memory. */
     volatile static int i = 0 ;
+    usb_status_t status;
     /* Enter an infinite loop, just incrementing a counter. */
     while(1) {
-        i++ ;
+    	i++ ;
         /* 'Dummy' NOP to allow source level single stepping of
             tight while() loop */
         __asm volatile ("nop");
-        //USB_DeviceInterface0CicVcomTask();
-        USB_DeviceTasks();
+        USB_DeviceInterface0CicVcomTask();
     }
     return 0 ;
 }

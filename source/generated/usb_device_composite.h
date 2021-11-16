@@ -45,6 +45,7 @@ typedef enum _usb_power_status
     kStatus_Resumed,
 } usb_power_status_t;
 
+
 #if (defined(USB_DEVICE_CONFIG_CHARGER_DETECT) && (USB_DEVICE_CONFIG_CHARGER_DETECT > 0U))
 /*! @brief USB DCD charging detect status */
 typedef enum _usb_device_dcd_dev_status
@@ -85,6 +86,7 @@ typedef struct _usb_device_composite_struct
     usb_device_dcd_dev_status_t dcdDectionStatus;
 #endif
 } usb_device_composite_struct_t;
+
 
 /*!
  * @brief Check power status of device

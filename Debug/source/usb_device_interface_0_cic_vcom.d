@@ -30,7 +30,8 @@ source/usb_device_interface_0_cic_vcom.o \
  C\:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\source\generated/usb_device_descriptor.h \
  C\:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\source\generated/usb_device_composite.h \
  C\:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\source\generated/usb_device_config.h \
- C\:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\source\generated/usb_device_descriptor.h
+ C\:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\source\generated/usb_device_descriptor.h \
+ ../source/usb_device_interface_0_cic_vcom.h
 C\:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\source\generated/usb_device_config.h:
 C\:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\usb\include/usb.h:
 C\:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\drivers/fsl_common.h:
@@ -61,3 +62,4 @@ C\:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\source\generated/usb_de
 C\:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\source\generated/usb_device_composite.h:
 C\:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\source\generated/usb_device_config.h:
 C\:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\source\generated/usb_device_descriptor.h:
+../source/usb_device_interface_0_cic_vcom.h:

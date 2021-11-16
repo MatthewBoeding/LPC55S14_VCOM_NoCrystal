@@ -25578,7 +25578,7 @@ typedef struct {
   __IO uint32_t HCINTERRUPTDISABLE;                /**< The bits in this register are used to disable corresponding bits in the HCInterruptStatus register and in turn disable that event leading to hardware interrupt, offset: 0x14 */
   __IO uint32_t HCHCCA;                            /**< Contains the physical address of the host controller communication area, offset: 0x18 */
   __I  uint32_t HCPERIODCURRENTED;                 /**< Contains the physical address of the current isochronous or interrupt endpoint descriptor, offset: 0x1C */
-  __IO uint32_t HCCONTROLHEADED;                   /**< Contains the physical address of the first endpoint descriptor of the control list, offset: 0x20 */
+  __IO uint32_t HCCONTROLHEADED;                   /**< Contains the physical address of the first descriptor of the control list, offset: 0x20 */
   __IO uint32_t HCCONTROLCURRENTED;                /**< Contains the physical address of the current endpoint descriptor of the control list, offset: 0x24 */
   __IO uint32_t HCBULKHEADED;                      /**< Contains the physical address of the first endpoint descriptor of the bulk list, offset: 0x28 */
   __IO uint32_t HCBULKCURRENTED;                   /**< Contains the physical address of the current endpoint descriptor of the bulk list, offset: 0x2C */

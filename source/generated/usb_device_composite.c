@@ -58,6 +58,7 @@
 #define CHIRP_ISSUE_WORKAROUND_NEEDED 0
 #endif
 
+usb_device_composite_struct_t g_UsbDeviceComposite;
 
 
 /* Undefined class type for the empty definition of the device class structure. */
@@ -116,7 +117,6 @@ uint32_t isConnectedToFsHost = 0U;
 uint32_t isConnectedToHsHost = 0U;
 #endif
 
-usb_device_composite_struct_t g_UsbDeviceComposite;
 
 extern usb_device_class_struct_t g_UsbDeviceInterface0CicVcomConfig;
 

@@ -14,6 +14,7 @@
 #include "usb_device_descriptor.h"
 
 #include "usb_device_composite.h"
+#include "usb_device_interface_0_cic_vcom.h"
 
 /*******************************************************************************
  * Definitions
@@ -105,6 +106,9 @@ usb_status_t USB_DeviceInterface0CicVcomInit(usb_device_composite_struct_t *devi
  * Variables
  ******************************************************************************/
 
+uint8_t buf[20];
+volatile uint16_t bufSize;
+volatile uint8_t cmdReady;
 
 extern usb_device_endpoint_struct_t g_UsbDeviceInterface1DicVcomSetting0DefaultEndpoints[];
 
@@ -132,6 +136,7 @@ USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) static usb_cdc_acm_info_t s_usbC
 /* Data buffer for receiving and sending*/
 USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) static uint8_t s_currRecvBuf[DATA_BUFF_SIZE];
 USB_DMA_NONINIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) static uint8_t s_currSendBuf[DATA_BUFF_SIZE];
+
 USB_DMA_INIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) volatile static uint32_t s_recvSize = 0;
 USB_DMA_INIT_DATA_ALIGN(USB_DATA_ALIGN_SIZE) volatile static uint32_t s_sendSize = 0;
 
@@ -166,10 +171,11 @@ void USB_DeviceInterface0CicVcomTask(void)
             for (i = 0; i < s_recvSize; i++)
             {
                 s_currSendBuf[s_sendSize++] = s_currRecvBuf[i];
+                buf[bufSize] = s_currRecvBuf[i];
+                bufSize++;
             }
             s_recvSize = 0;
         }
-
         if (s_sendSize)
         {
             uint32_t size = s_sendSize;
@@ -182,6 +188,19 @@ void USB_DeviceInterface0CicVcomTask(void)
                 /* Failure to send Data Handling code here */
             }
         }
+        if (bufSize >= 3)
+        {
+            bufSize = 0;
+    		cmdReady = 1;
+    		uint8_t buft[] = "WTF FUCK YOU";
+    		uint8_t *p = buft;
+            error = USB_DeviceCdcAcmSend(s_UsbInterface0CicVcom.cdcAcmHandle, USB_DIC_VCOM_IN_ENDPOINT, buft, 12);
+            if (error != kStatus_USB_Success)
+            {
+                /* Failure to send Data Handling code here */
+            }
+        }
+
 #if defined(FSL_FEATURE_USB_KHCI_KEEP_ALIVE_ENABLED) && (FSL_FEATURE_USB_KHCI_KEEP_ALIVE_ENABLED > 0U) && \
     defined(USB_DEVICE_CONFIG_KEEP_ALIVE_MODE) && (USB_DEVICE_CONFIG_KEEP_ALIVE_MODE > 0U) &&             \
     defined(FSL_FEATURE_USB_KHCI_USB_RAM) && (FSL_FEATURE_USB_KHCI_USB_RAM > 0U)
@@ -523,4 +542,56 @@ usb_status_t USB_DeviceInterface0CicVcomInit(usb_device_composite_struct_t *devi
     s_UsbDeviceComposite = deviceComposite;
     s_UsbInterface0CicVcom.cdcAcmHandle = s_UsbDeviceComposite->interface0CicVcomHandle;
     return kStatus_USB_Success;
+}
+
+void USB_CommandParse(void)
+{
+	uint8_t *p;
+	uint8_t valid = 0;
+	int i = 0;
+		if(buf[i] == 't' || buf[i] == 'T')
+		{
+			if((buf[i+1] == 'o' || buf[i+1] == 'O') && (buf[i+2] == 'f' || buf[i+2] == 'F'))
+			{
+				uint8_t bufr[] = "TOF Received\r\n";
+				p = bufr;
+				valid = 1;
+			}
+		}
+		else if(buf[i] == 'g' || buf[i] == 'G')
+		{
+			if((buf[i+1] == 'p' || buf[i+1] == 'P') && (buf[i+2] == 's' || buf[i+2] == 'S'))
+			{
+				uint8_t bufr[] = "GPS Received\r\n";
+				p = bufr;
+				valid = 1;
+			}
+		}
+		else if(buf[i] == 'i' || buf[i] == 'I')
+		{
+			if((buf[i+1] == 'm' || buf[i+1] == 'M') && (buf[i+2] == 'g' || buf[i+2] == 'G'))
+			{
+				uint8_t bufr[] = "IMG Received\r\n";
+				p = bufr;
+				valid = 1;
+			}
+		}
+	if (valid)
+	{
+		if ((1 == s_UsbDeviceComposite->attach) && (1 == s_UsbInterface0CicVcom.startTransactions))
+		{
+			memcpy(s_currSendBuf, p, 14);
+			if (USB_DeviceCdcAcmSend(s_UsbInterface0CicVcom.cdcAcmHandle, USB_DIC_VCOM_IN_ENDPOINT, s_currSendBuf, 14) != kStatus_USB_Success)
+			{
+
+			}
+			else
+			{
+
+			}
+		}
+	}
+	bufSize = 0;
+	cmdReady = 0;
+	return;
 }
