@@ -106,10 +106,9 @@ usb_status_t USB_DeviceInterface0CicVcomInit(usb_device_composite_struct_t *devi
  * Variables
  ******************************************************************************/
 
-uint8_t buf[20];
-volatile uint16_t bufSize;
-volatile uint8_t cmdReady;
-
+extern uint8_t buf[20];
+extern uint16_t bufSize;
+extern uint8_t cmdReady;
 extern usb_device_endpoint_struct_t g_UsbDeviceInterface1DicVcomSetting0DefaultEndpoints[];
 
 /* Line coding of cdc device */
@@ -172,8 +171,8 @@ void USB_DeviceInterface0CicVcomTask(void)
             {
                 s_currSendBuf[s_sendSize++] = s_currRecvBuf[i];
                 buf[bufSize] = s_currRecvBuf[i];
-                bufSize++;
             }
+            bufSize = bufSize + s_recvSize;
             s_recvSize = 0;
         }
         if (s_sendSize)
@@ -190,15 +189,7 @@ void USB_DeviceInterface0CicVcomTask(void)
         }
         if (bufSize >= 3)
         {
-            bufSize = 0;
     		cmdReady = 1;
-    		uint8_t buft[] = "WTF FUCK YOU";
-    		uint8_t *p = buft;
-            error = USB_DeviceCdcAcmSend(s_UsbInterface0CicVcom.cdcAcmHandle, USB_DIC_VCOM_IN_ENDPOINT, buft, 12);
-            if (error != kStatus_USB_Success)
-            {
-                /* Failure to send Data Handling code here */
-            }
         }
 
 #if defined(FSL_FEATURE_USB_KHCI_KEEP_ALIVE_ENABLED) && (FSL_FEATURE_USB_KHCI_KEEP_ALIVE_ENABLED > 0U) && \
@@ -578,17 +569,11 @@ void USB_CommandParse(void)
 		}
 	if (valid)
 	{
-		if ((1 == s_UsbDeviceComposite->attach) && (1 == s_UsbInterface0CicVcom.startTransactions))
+		usb_status_t error = USB_DeviceCdcAcmSend(s_UsbInterface0CicVcom.cdcAcmHandle, USB_DIC_VCOM_IN_ENDPOINT, p, 12);
+
+		if (error != kStatus_USB_Success)
 		{
-			memcpy(s_currSendBuf, p, 14);
-			if (USB_DeviceCdcAcmSend(s_UsbInterface0CicVcom.cdcAcmHandle, USB_DIC_VCOM_IN_ENDPOINT, s_currSendBuf, 14) != kStatus_USB_Success)
-			{
 
-			}
-			else
-			{
-
-			}
 		}
 	}
 	bufSize = 0;

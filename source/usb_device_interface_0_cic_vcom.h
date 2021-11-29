@@ -9,7 +9,9 @@
 /*******************************************************************************
  * Definitions
  ******************************************************************************/
-
+extern uint8_t buf[20];
+extern uint16_t bufSize;
+extern uint8_t cmdReady;
 /*!
  * @brief Interface task function.
  */

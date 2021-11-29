@@ -1,1 +1,2 @@
+C:\Users\mlboe\Documents\GitHub\LPC55S14_VCOM_NoCrystal\utilities/fsl_debug_console.h:152:24:DbgConsole_Init	24	static
 ../board/board.c:24:6:BOARD_InitDebugConsole	16	static

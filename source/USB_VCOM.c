@@ -52,7 +52,9 @@
 #define USB_CDC_VCOM_DIC_BULK_OUT_ENDPOINT (3)
 usb_device_control_type_t type;
 
-extern uint8_t cmdReady;
+uint8_t buf[20];
+uint16_t bufSize;
+uint8_t cmdReady;
 
 static usb_device_composite_struct_t g_UsbDeviceComposite;
 
@@ -87,6 +89,15 @@ int main(void) {
             tight while() loop */
         __asm volatile ("nop");
         USB_DeviceInterface0CicVcomTask();
+        if(cmdReady)
+        {
+        	PRINTF("\nReceived: ");
+        	uint8_t * p = buf;
+        	PRINTF(p);
+        	bufSize = 0;
+        	cmdReady = 0;
+        	USB_CommandParse();
+        }
     }
     return 0 ;
 }
